@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HEAT / AFTERTASTE</title>
+<meta name="description" content="A cinematic editorial portfolio: sensual realism, analog intimacy, feminine grit, and heat-drenched melancholy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --ink: #f0e6d3;
+  --parchment: #e8dcc8;
+  --muted: #9a8878;
+  --dim: #5a4e44;
+  --black: #080604;
+  --deep: #0f0c09;
+  --panel: #120f0b;
+  --red: #8b2318;
+  --crimson: #c13520;
+  --gold: #c4993a;
+  --amber: #e8a84a;
+  --sand: #b89a6e;
+  --line: rgba(196,153,58,.18);
+  --line-soft: rgba(240,230,211,.07);
+  --serif: 'Playfair Display', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --body: 'Libre Baskerville', Georgia, serif;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+body { cursor: none; }
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: difference;
+}
+#cursor.big {
+  width: 44px; height: 44px;
+  background: rgba(196,153,58,.3);
+  border: 1px solid var(--gold);
+}
+a, button, figure { cursor: none; }
+
+/* ─── NAVIGATION ─── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 40px;
+  background: linear-gradient(to bottom, rgba(8,6,4,.9) 0%, transparent 100%);
+  backdrop-filter: blur(0px);
+  transition: background .4s, padding .4s;
+}
+.nav.scrolled {
+  background: rgba(8,6,4,.95);
+  padding: 18px 40px;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nav-links a {
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform .3s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+}
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(.52) contrast(1.12) saturate(.85);
+  transform: scale(1.04);
+  animation: slowzoom 18s ease-out forwards;
+}
+@keyframes slowzoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.0); }
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(0,0,0,.85), transparent),
+    linear-gradient(to top, rgba(8,6,4,1) 0%, rgba(8,6,4,.3) 40%, transparent 70%);
+}
+.hero-body {
+  position: relative;
+  z-index: 2;
+  padding: 0 7vw 8vh;
+  max-width: 1100px;
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: fadeup .9s .4s ease forwards;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(72px, 12vw, 180px);
+  font-weight: 900;
+  line-height: .88;
+  letter-spacing: -.03em;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeup 1s .6s ease forwards;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--parchment);
+  display: block;
+}
+.hero-desc {
+  max-width: 540px;
+  margin-top: 28px;
+  font-size: clamp(15px, 1.4vw, 19px);
+  color: var(--sand);
+  line-height: 1.55;
+  opacity: 0;
+  animation: fadeup .9s .9s ease forwards;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  right: 40px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  writing-mode: vertical-rl;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  animation: fadeup .8s 1.4s ease forwards;
+}
+.hero-scroll::before {
+  content: "";
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+}
+
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SECTION BASE ─── */
+.section {
+  padding: 10vw 7vw;
+  border-top: 1px solid var(--line-soft);
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(44px, 8vw, 110px);
+  font-weight: 700;
+  line-height: .9;
+  letter-spacing: -.04em;
+  color: var(--ink);
+}
+
+/* ─── MANIFESTO ─── */
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 8vw;
+  align-items: start;
+  margin-top: 10px;
+}
+.manifesto-statement {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.8vw, 40px);
+  font-style: italic;
+  line-height: 1.12;
+  color: var(--parchment);
+}
+.manifesto-notes {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  padding-top: 8px;
+}
+.manifesto-notes p + p { margin-top: 1em; }
+.motifs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 28px;
+}
+.motif-tag {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--sand);
+  background: rgba(196,153,58,.04);
+  transition: background .2s, color .2s;
+}
+.motif-tag:hover {
+  background: rgba(196,153,58,.12);
+  color: var(--gold);
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 18px 0;
+  background: var(--deep);
+}
+.marquee-track {
+  display: flex;
+  gap: 64px;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.marquee-track span { white-space: nowrap; }
+.marquee-track em {
+  font-style: normal;
+  color: var(--gold);
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── NARRATIVE SEQUENCE ─── */
+.sequence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 72px;
+}
+.sequence-desc {
+  max-width: 480px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.narrative-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10vw;
+}
+.chapter {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 5vw;
+  align-items: center;
+}
+.chapter:nth-child(even) {
+  grid-template-columns: .85fr 1.15fr;
+}
+.chapter:nth-child(even) .chapter-img { order: 2; }
+.chapter:nth-child(even) .chapter-text { order: 1; }
+.chapter-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--panel);
+}
+.chapter-img img {
+  width: 100%;
+  height: min(80vh, 860px);
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.chapter:hover .chapter-img img { transform: scale(1.04); }
+.chapter-num {
+  position: absolute;
+  top: 20px; left: 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: var(--gold);
+  background: rgba(8,6,4,.7);
+  padding: 6px 10px;
+  backdrop-filter: blur(6px);
+}
+.chapter-text {
+  padding: 20px 0;
+}
+.chapter-series {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.chapter-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 62px);
+  font-weight: 700;
+  line-height: .94;
+  letter-spacing: -.03em;
+  margin-bottom: 20px;
+}
+.chapter-caption {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 380px;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ─── TRIPTYCH BREAK ─── */
+.triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  overflow: hidden;
+}
+.triptych-cell {
+  position: relative;
+  overflow: hidden;
+}
+.triptych-cell img {
+  width: 100%;
+  height: 62vh;
+  object-fit: cover;
+  filter: saturate(.88) contrast(1.06);
+  transition: transform .9s ease, filter .4s;
+}
+.triptych-cell:hover img {
+  transform: scale(1.06);
+  filter: saturate(1) contrast(1.08);
+}
+.triptych-label {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(240,230,211,.6);
+}
+
+/* ─── SERIES GRID ─── */
+.series-section {
+  padding: 9vw 7vw;
+  border-top: 1px solid var(--line-soft);
+}
+.series-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 52px;
+}
+.series-desc {
+  max-width: 480px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.series-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: var(--dim);
+  white-space: nowrap;
+}
+/* Masonry using CSS columns */
+.gallery {
+  columns: 3 260px;
+  column-gap: 3px;
+}
+.card {
+  break-inside: avoid;
+  margin: 0 0 3px;
+  position: relative;
+  overflow: hidden;
+  background: var(--panel);
+  cursor: none;
+}
+.card img {
+  width: 100%;
+  display: block;
+  filter: saturate(.9) contrast(1.04);
+  transition: transform .9s cubic-bezier(.16,1,.3,1), filter .4s;
+}
+.card:hover img {
+  transform: scale(1.07);
+  filter: saturate(1.05) contrast(1.06);
+}
+.card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 40px 18px 18px;
+  background: linear-gradient(to top, rgba(8,6,4,.92), transparent);
+  transform: translateY(6px);
+  opacity: 0;
+  transition: opacity .35s, transform .35s;
+}
+.card:hover .card-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.card-caption {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(8,6,4,.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox-inner {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.lightbox img {
+  max-width: 72vw;
+  max-height: 88vh;
+  object-fit: contain;
+  box-shadow: 0 30px 80px rgba(0,0,0,.7);
+}
+.lightbox-meta {
+  min-width: 220px;
+  max-width: 280px;
+}
+.lightbox-series {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.lightbox-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: .94;
+  margin-bottom: 16px;
+}
+.lightbox-caption {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+.lightbox-close {
+  position: absolute;
+  top: -50px; right: 0;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  padding: 8px 14px;
+  cursor: none;
+  transition: color .2s, border-color .2s;
+}
+.lightbox-close:hover { color: var(--ink); border-color: var(--gold); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(8,6,4,.7);
+  border: 1px solid var(--line-soft);
+  color: var(--muted);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  transition: color .2s, border-color .2s;
+  font-size: 18px;
+}
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+.lightbox-nav:hover { color: var(--ink); border-color: var(--gold); }
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7vw;
+  align-items: start;
+  margin-top: 40px;
+}
+.about-text p {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1.2em;
+}
+.about-pull {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 48px);
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--sand);
+  border-left: 2px solid var(--gold);
+  padding-left: 28px;
+}
+.stats {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  border: 1px solid var(--line-soft);
+}
+.stat {
+  padding: 22px 20px;
+  border-right: 1px solid var(--line-soft);
+  background: var(--panel);
+}
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 6px;
+}
+
+/* ─── CONTACT ─── */
+.contact-section {
+  padding: 13vw 7vw;
+  border-top: 1px solid var(--line-soft);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7vw;
+  align-items: center;
+}
+.contact-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5.5vw, 80px);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: -.04em;
+}
+.contact-title em {
+  font-style: italic;
+  display: block;
+  color: var(--sand);
+}
+.contact-cta {
+  margin-top: 36px;
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 0;
+  transition: background .25s, color .25s;
+  cursor: none;
+}
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+.contact-tagline {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--line-soft);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .35s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .nav { padding: 18px 22px; }
+  .nav-links { display: none; }
+  .hero-body { padding: 0 22px 56px; }
+  .manifesto-grid { grid-template-columns: 1fr; }
+  .chapter, .chapter:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+  .chapter:nth-child(even) .chapter-img,
+  .chapter:nth-child(even) .chapter-text { order: unset; }
+  .chapter-img img { height: 64vw; }
+  .triptych { grid-template-columns: 1fr; }
+  .triptych-cell img { height: 60vw; }
+  .gallery { columns: 2 180px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-section { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid var(--line-soft); }
+  .sequence-header { flex-direction: column; align-items: flex-start; }
+  .series-head { flex-direction: column; align-items: flex-start; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+  #cursor { display: none; }
+  body { cursor: auto; }
+}
+@media (max-width: 600px) {
+  .gallery { columns: 1; }
+  .section, .series-section { padding: 64px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lb-close">ESC / CLOSE</button>
+    <button class="lightbox-nav lightbox-prev" id="lb-prev">&#8592;</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lightbox-meta">
+      <div class="lightbox-series" id="lb-series"></div>
+      <div class="lightbox-title" id="lb-title"></div>
+      <div class="lightbox-caption" id="lb-caption"></div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lb-next">&#8594;</button>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">Heat / Aftertaste</div>
+  <ul class="nav-links">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#sequence">Sequence</a></li>
+    <li><a href="#mechanical-noir">Series</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="assets/images/42-CB137EAA-12C9-4E88-AB29-911E1D067052.jpg" alt="Market Cherry">
+  </div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">Cinematic Editorial Portfolio</div>
+    <h1>HEAT<em>AFTER&shy;TASTE</em></h1>
+    <p class="hero-desc">Sensual realism, feminine grit, analog intimacy, and the charged silence after beauty has stopped performing.</p>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</header>
+
+<!-- Manifesto -->
+<section class="section reveal" id="manifesto">
+  <div class="eyebrow">Manifesto</div>
+  <div class="manifesto-grid">
+    <div>
+      <p class="manifesto-statement">This is not a gallery of pretty images. It is a woman crossing climates, rooms, roads, rituals, machines, and appetites while remaining impossible to fully read.</p>
+    </div>
+    <div class="manifesto-notes">
+      <p>The work moves through heat, exhaustion, chrome, cherries, devotional jewelry, wet skin, motel light, desert air, backstage fatigue, and the private drama of ordinary rooms.</p>
+      <p>Each image is a film still from a story that refuses to explain itself completely.</p>
+      <div class="motifs">
+        <span class="motif-tag">cherries</span>
+        <span class="motif-tag">helmets</span>
+        <span class="motif-tag">old cars</span>
+        <span class="motif-tag">gold</span>
+        <span class="motif-tag">wet skin</span>
+        <span class="motif-tag">desert</span>
+        <span class="motif-tag">kitchens</span>
+        <span class="motif-tag">silence</span>
+        <span class="motif-tag">neon</span>
+        <span class="motif-tag">lace</span>
+        <span class="motif-tag">ritual</span>
+        <span class="motif-tag">dust</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>Heat / Aftertaste</span><em>·</em>
+    <span>Intimate Stillness</span><em>·</em>
+    <span>Desert Devotional</span><em>·</em>
+    <span>Mechanical Noir</span><em>·</em>
+    <span>Cinematic Editorial</span><em>·</em>
+    <span>AI Authorship</span><em>·</em>
+    <span>Sensual Realism</span><em>·</em>
+    <span>Analog Intimacy</span><em>·</em>
+    <span>Feminine Grit</span><em>·</em>
+    <span>Heat / Aftertaste</span><em>·</em>
+    <span>Intimate Stillness</span><em>·</em>
+    <span>Desert Devotional</span><em>·</em>
+    <span>Mechanical Noir</span><em>·</em>
+    <span>Cinematic Editorial</span><em>·</em>
+    <span>AI Authorship</span><em>·</em>
+    <span>Sensual Realism</span><em>·</em>
+    <span>Analog Intimacy</span><em>·</em>
+    <span>Feminine Grit</span><em>·</em>
+  </div>
+</div>
+
+<!-- Narrative Sequence -->
+<section class="section" id="sequence">
+  <div class="sequence-header reveal">
+    <div>
+      <div class="eyebrow">12-Image Narrative</div>
+      <h2 class="section-title">The Sequence</h2>
+    </div>
+    <p class="sequence-desc">A curated cinematic arc: arrival, appetite, intimacy, movement, ritual, armor, exhaustion, and departure.</p>
+  </div>
+  <div class="narrative-list" id="narrativeGrid"></div>
+</section>
+
+<!-- Triptych break -->
+<div class="triptych" aria-hidden="true">
+  <div class="triptych-cell">
+    <img src="assets/images/38-D4D9DFD2-FACA-4703-A5EC-5F0A7F6C715E.jpg" alt="Helmet I" loading="lazy">
+    <span class="triptych-label">Mechanical Noir</span>
+  </div>
+  <div class="triptych-cell">
+    <img src="assets/images/44-3DF5C973-8020-4885-8B7F-9D91429D84B5.jpg" alt="Lotus Devotion" loading="lazy">
+    <span class="triptych-label">Desert Devotional</span>
+  </div>
+  <div class="triptych-cell">
+    <img src="assets/images/48-2D005765-254A-4684-AA63-3EC07C573459.jpg" alt="Floor Satin" loading="lazy">
+    <span class="triptych-label">Intimate Stillness</span>
+  </div>
+</div>
+
+<!-- Series Galleries -->
+<div id="seriesWrap"></div>
+
+<!-- About -->
+<section class="section reveal" id="about">
+  <div class="eyebrow">About</div>
+  <h2 class="section-title">Visual<br>Worldbuilding</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>This portfolio treats AI imagery as cinematic authorship rather than prompt spectacle. The subject recurs across contradictory states: armored and vulnerable, mythic and tired, sensual and withholding.</p>
+      <p>The work is organized into three series — Mechanical Noir, Desert Devotional, and Intimate Stillness — each exploring a distinct emotional register while sharing a singular, recurring protagonist.</p>
+      <p>The strongest images behave like film stills from a story that refuses to explain itself completely. That refusal is the point.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">51</div>
+          <div class="stat-label">Images</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">3</div>
+          <div class="stat-label">Series</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">1</div>
+          <div class="stat-label">Protagonist</div>
+        </div>
+      </div>
+    </div>
+    <blockquote class="about-pull reveal reveal-delay-2">
+      "A woman crossing climates, rooms, roads, rituals — impossible to fully read."
+    </blockquote>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section reveal" id="contact">
+  <div>
+    <div class="eyebrow">Contact</div>
+    <h2 class="contact-title">For commissions,<em>collaborations.</em></h2>
+    <div class="contact-cta">
+      <a href="mailto:rendertheory7@gmail.com" class="btn-outline">
+        <span>rendertheory7@gmail.com</span>
+        <span>&#8599;</span>
+      </a>
+    </div>
+  </div>
+  <p class="contact-tagline reveal reveal-delay-2">"Editorial inquiries, commercial collaboration, or anything that begins with heat."</p>
+</section>
+
+<footer>
+  <span>© Heat / Aftertaste</span>
+  <span>Cinematic Editorial Portfolio</span>
+  <span>Replace contact email before publishing</span>
+</footer>
+
+<script>
+/* ─── DATA ─── */
+const WORKS = [
+  { file:"assets/images/01-C15A2862-E048-4F6F-B91F-D32D48574042.jpg", title:"Winter Birch", series:"Intimate Stillness", caption:"Cold air, breath, and the first refusal to disappear.", n:1 },
+  { file:"assets/images/02-9DF3DBC0-112D-44D8-B708-034B41AE0F69.jpg", title:"Desert Dusk", series:"Desert Devotional", caption:"Heat as origin story.", n:2 },
+  { file:"assets/images/03-5178E485-1619-48DC-B715-20731871145B.jpg", title:"White Static", series:"Intimate Stillness", caption:"A body half-erased by light.", n:3 },
+  { file:"assets/images/04-063503AD-B51B-4B46-B21C-C5D23A040055.jpg", title:"Moving Car", series:"Mechanical Noir", caption:"Laughter caught at speed.", n:4 },
+  { file:"assets/images/05-73242E72-634D-4E32-957B-D62E2F849A0B.jpg", title:"Gathering", series:"Intimate Stillness", caption:"Warmth without surrender.", n:5 },
+  { file:"assets/images/06-9D12AB1B-BE01-4BFB-B457-4247C7AF79EC.jpg", title:"Backstage", series:"Intimate Stillness", caption:"Stillness held inside noise.", n:6 },
+  { file:"assets/images/07-1E16A440-6E35-494E-8398-16ADCECF82FA.jpg", title:"Birch Veil", series:"Intimate Stillness", caption:"Snow as a second skin.", n:7 },
+  { file:"assets/images/08-53133648-FC96-4FAA-9CA1-39BAC743143B.jpg", title:"Roadside", series:"Mechanical Noir", caption:"The aftermath keeps moving.", n:8 },
+  { file:"assets/images/09-714223B8-1EE9-4FEA-BFCE-4DFAEF1226A2.jpg", title:"Red Room", series:"Desert Devotional", caption:"A private mythology in red.", n:9 },
+  { file:"assets/images/10-D775021A-EEE4-45BE-AE62-8EA4E1D75C45.jpg", title:"Open Heat", series:"Desert Devotional", caption:"The sun becomes a witness.", n:10 },
+  { file:"assets/images/11-683418B6-90A1-4319-97F0-94B097E12532.jpg", title:"Moroccan Doorway", series:"Desert Devotional", caption:"Architecture frames authority.", n:11 },
+  { file:"assets/images/12-774BA3C7-3CF9-4BB6-BB0E-6775D2B5EF01.jpg", title:"Lace in Snow", series:"Intimate Stillness", caption:"A dangerous softness in winter.", n:12 },
+  { file:"assets/images/13-E5F14B31-A360-4F34-AD19-284F4BC9ED61.jpg", title:"Headphones", series:"Mechanical Noir", caption:"Sound as isolation.", n:13 },
+  { file:"assets/images/14-2058C744-EDF3-44B0-BFBC-8474431BE3E9.jpg", title:"Chess Table", series:"Intimate Stillness", caption:"Control without announcement.", n:14 },
+  { file:"assets/images/15-F6E0ED13-20E3-4B09-8333-FFC8788364EA.jpg", title:"White Suit", series:"Mechanical Noir", caption:"The final form walks in clean lines.", n:15 },
+  { file:"assets/images/16-B6CB4054-B5DE-42B8-BD8E-1D1127A795A6.jpg", title:"Twin Revolvers", series:"Mechanical Noir", caption:"Pulp iconography, held cold.", n:16 },
+  { file:"assets/images/17-2352FC12-6008-4C19-8BF4-49208E57DD7A.jpg", title:"Velvet Dark", series:"Intimate Stillness", caption:"The room keeps its secrets.", n:17 },
+  { file:"assets/images/18-B6BEC14B-D056-498D-8ED8-8332980BF860.jpg", title:"Black Frame", series:"Mechanical Noir", caption:"Danger reduced to posture.", n:18 },
+  { file:"assets/images/19-A96DCF19-24DB-410C-96E3-4646FDDA6158.jpg", title:"Smoke Room", series:"Intimate Stillness", caption:"Elegance after midnight.", n:19 },
+  { file:"assets/images/20-E669CD7A-B2DD-438D-8B4F-92619B545AB9.jpg", title:"Red Corridor", series:"Desert Devotional", caption:"A passage lit by desire.", n:20 },
+  { file:"assets/images/21-0948351F-6191-4FE9-BB2F-A508043DEA60.jpg", title:"Sari Portrait", series:"Desert Devotional", caption:"Jewelry becomes constellation.", n:21 },
+  { file:"assets/images/22-8D7502AF-ED9C-485F-B654-B7A5EFEC703A.jpg", title:"Morning Coffee", series:"Intimate Stillness", caption:"The believable softness of ordinary light.", n:22 },
+  { file:"assets/images/23-A76D21D4-8519-4B6F-BFEF-0888D2E4D48D.jpg", title:"Pool Night", series:"Intimate Stillness", caption:"A body floating between lives.", n:23 },
+  { file:"assets/images/24-55A37B4A-C80B-4A3F-820B-1CAF5D188E3E.jpg", title:"Kitchen Window", series:"Intimate Stillness", caption:"Domesticity carrying a private weather.", n:24 },
+  { file:"assets/images/25-DFC0C3DC-E4C3-4F88-A20C-AC532EB4D9EC.jpg", title:"Backstage Corset", series:"Intimate Stillness", caption:"Fatigue, fabric, and the cost of beauty.", n:25 },
+  { file:"assets/images/26-E3AE579D-35F4-4E8B-A042-9D2DD889EA13.jpg", title:"Rust Truck", series:"Mechanical Noir", caption:"Desert noir before disappearance.", n:26 },
+  { file:"assets/images/27-BFD56B33-474D-4062-8BA2-2BDA251E84AC.jpg", title:"Dressing Room", series:"Intimate Stillness", caption:"A mirror, a garment rack, a held breath.", n:27 },
+  { file:"assets/images/28-D96C5EDD-2C74-47A7-B99A-C3718F4016EF.jpg", title:"Red Dust", series:"Desert Devotional", caption:"A horizon full of heat.", n:28 },
+  { file:"assets/images/29-097F7A35-95BF-41E8-8784-FD3367265E75.jpg", title:"Afterparty Silence", series:"Intimate Stillness", caption:"Beauty surviving exhaustion.", n:29 },
+  { file:"assets/images/30-909A2FB1-E63C-44ED-B4AD-92CEFC45B4F8.jpg", title:"Soft Archive", series:"Intimate Stillness", caption:"Memory in a low register.", n:30 },
+  { file:"assets/images/31-63F541A0-D925-41D2-AE69-06392CDDD0EB.jpg", title:"Bottle Light", series:"Intimate Stillness", caption:"Late-night water and unsaid things.", n:31 },
+  { file:"assets/images/32-11BA2FD6-1162-4A2F-B848-4A5D3A398196.jpg", title:"Drive", series:"Mechanical Noir", caption:"The face belongs somewhere else.", n:32 },
+  { file:"assets/images/33-6F9D7A8E-022E-4AF8-8AD7-4A547A0D6C86.jpg", title:"GT350", series:"Mechanical Noir", caption:"A myth parked in harsh light.", n:33 },
+  { file:"assets/images/34-68FEBE2F-5D70-4139-9A63-B98F2F3D4D45.jpg", title:"Cap Portrait", series:"Mechanical Noir", caption:"Truck-stop heirloom energy.", n:34 },
+  { file:"assets/images/35-BE1D6ABC-86F9-4184-821E-3CB7246AE728.jpg", title:"Open Desert II", series:"Desert Devotional", caption:"Heat replacing memory.", n:35 },
+  { file:"assets/images/36-75D62580-BCDA-4550-BED3-D8F4C52E6C48.jpg", title:"Road Static", series:"Mechanical Noir", caption:"Movement without escape.", n:36 },
+  { file:"assets/images/37-F94FB00F-95A7-4881-9398-EBAC4898B95B.jpg", title:"Night Interior", series:"Intimate Stillness", caption:"Small rooms, large feelings.", n:37 },
+  { file:"assets/images/38-D4D9DFD2-FACA-4703-A5EC-5F0A7F6C715E.jpg", title:"Helmet I", series:"Mechanical Noir", caption:"Armor becomes identity.", n:38 },
+  { file:"assets/images/39-3E4A16E5-3E04-48BE-B278-C1EB1BBBA978.jpg", title:"Helmet II", series:"Mechanical Noir", caption:"Joy distorted through machinery.", n:39 },
+  { file:"assets/images/40-BBF168AD-EB7B-4A2A-937B-81672DB167CE.jpg", title:"Helmet III", series:"Mechanical Noir", caption:"The visor holds the scream.", n:40 },
+  { file:"assets/images/41-C8A55FC2-C3B7-40F0-AC1B-26AB9D9274CA.jpg", title:"Polaroid Heat", series:"Desert Devotional", caption:"Obsession collected in fragments.", n:41 },
+  { file:"assets/images/42-CB137EAA-12C9-4E88-AB29-911E1D067052.jpg", title:"Market Cherry", series:"Desert Devotional", caption:"Appetite under fluorescent weather.", n:42 },
+  { file:"assets/images/43-BAE24D98-3801-4522-AB97-2171204B4FEB.jpg", title:"Stillness Portrait", series:"Intimate Stillness", caption:"A pause that refuses spectacle.", n:43 },
+  { file:"assets/images/44-3DF5C973-8020-4885-8B7F-9D91429D84B5.jpg", title:"Lotus Devotion", series:"Desert Devotional", caption:"Sensuality turning ritual.", n:44 },
+  { file:"assets/images/45-D2EEB1F9-F90D-423F-A728-A2079E763752.jpg", title:"Vintage Car", series:"Mechanical Noir", caption:"American myth, damaged at the edges.", n:45 },
+  { file:"assets/images/46-67660C55-F312-4FC4-AE00-406CF8942D38.jpg", title:"Helmet Smile", series:"Mechanical Noir", caption:"Black-and-white joy behind glass.", n:46 },
+  { file:"assets/images/47-6E12BCD0-EE74-466A-88E3-6C6CA4498F4E.jpg", title:"Still I Rise", series:"Intimate Stillness", caption:"Biography as a fragment.", n:47 },
+  { file:"assets/images/48-2D005765-254A-4684-AA63-3EC07C573459.jpg", title:"Floor Satin", series:"Intimate Stillness", caption:"The body becomes narrative.", n:48 },
+  { file:"assets/images/49-67FA926D-9EA3-4845-B3A6-3F60AA5BFD2A.jpg", title:"Cherry Mouth", series:"Desert Devotional", caption:"Sweetness made uneasy.", n:49 },
+  { file:"assets/images/50-4F7E2C3D-760B-44E2-A9C4-559C04E0CA06.jpg", title:"Fruit Market", series:"Desert Devotional", caption:"A world finally crowded around her.", n:50 },
+  { file:"assets/images/51-FCD401B5-D162-4526-AD07-7862D32413B0.jpg", title:"Lip Crop", series:"Desert Devotional", caption:"Commercial beauty with texture intact.", n:51 }
+];
+
+const NARRATIVE = [
+  WORKS[10], WORKS[41], WORKS[48], WORKS[23], WORKS[20],
+  WORKS[37], WORKS[43], WORKS[32], WORKS[36], WORKS[46],
+  WORKS[28], WORKS[50]
+];
+
+const SERIES = [
+  {
+    id: "mechanical-noir",
+    name: "Mechanical Noir",
+    desc: "Helmets, cars, chrome, speed, night glass, and the emotional armor of motion."
+  },
+  {
+    id: "desert-devotional",
+    name: "Desert Devotional",
+    desc: "Heat, fruit, flowers, jewelry, dust, ritual, appetite, and sacred exhaustion."
+  },
+  {
+    id: "intimate-stillness",
+    name: "Intimate Stillness",
+    desc: "Rooms, kitchens, backstage silence, soft windows, fatigue, and private weather."
+  }
+];
+
+/* ─── LIGHTBOX STATE ─── */
+let lbImages = [];
+let lbIndex = 0;
+
+function openLightbox(images, index) {
+  lbImages = images;
+  lbIndex = index;
+  showLbImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showLbImage() {
+  const w = lbImages[lbIndex];
+  document.getElementById('lb-img').src = w.file;
+  document.getElementById('lb-img').alt = w.title;
+  document.getElementById('lb-series').textContent = w.series;
+  document.getElementById('lb-title').textContent = w.title;
+  document.getElementById('lb-caption').textContent = w.caption;
+}
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', () => {
+  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+  showLbImage();
+});
+document.getElementById('lb-next').addEventListener('click', () => {
+  lbIndex = (lbIndex + 1) % lbImages.length;
+  showLbImage();
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; showLbImage(); }
+  if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbImages.length; showLbImage(); }
+});
+
+/* ─── RENDER NARRATIVE ─── */
+function renderNarrative() {
+  const wrap = document.getElementById('narrativeGrid');
+  NARRATIVE.forEach((w, i) => {
+    const art = document.createElement('article');
+    art.className = 'chapter reveal';
+
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'chapter-img';
+    const numBadge = document.createElement('div');
+    numBadge.className = 'chapter-num';
+    numBadge.textContent = String(i + 1).padStart(2, '0') + ' / 12';
+    const img = document.createElement('img');
+    img.src = w.file;
+    img.alt = w.title;
+    img.loading = 'lazy';
+    img.style.cursor = 'none';
+    imgWrap.appendChild(numBadge);
+    imgWrap.appendChild(img);
+
+    const txt = document.createElement('div');
+    txt.className = 'chapter-text';
+    txt.innerHTML = `
+      <div class="chapter-series">${w.series}</div>
+      <h3 class="chapter-title">${w.title}</h3>
+      <p class="chapter-caption">${w.caption}</p>
+    `;
+
+    art.appendChild(imgWrap);
+    art.appendChild(txt);
+
+    // lightbox on click
+    const narrativeSeries = NARRATIVE;
+    art.addEventListener('click', () => openLightbox(narrativeSeries, i));
+    imgWrap.style.cursor = 'none';
+
+    wrap.appendChild(art);
+  });
+}
+
+/* ─── RENDER SERIES ─── */
+function renderSeries() {
+  const wrap = document.getElementById('seriesWrap');
+  SERIES.forEach(s => {
+    const items = WORKS.filter(w => w.series === s.name);
+    const sec = document.createElement('section');
+    sec.className = 'series-section reveal';
+    sec.id = s.id;
+
+    const count = items.length;
+    sec.innerHTML = `
+      <div class="series-head">
+        <div>
+          <div class="eyebrow">Series</div>
+          <h2 class="section-title">${s.name}</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <p class="series-desc">${s.desc}</p>
+          <span class="series-count">${count} images</span>
+        </div>
+      </div>
+      <div class="gallery" id="gallery-${s.id}"></div>
+    `;
+    wrap.appendChild(sec);
+
+    const gal = sec.querySelector(`#gallery-${s.id}`);
+    items.forEach((w, i) => {
+      const fig = document.createElement('figure');
+      fig.className = 'card';
+      fig.innerHTML = `
+        <img loading="lazy" src="${w.file}" alt="${w.title}">
+        <div class="card-info">
+          <div class="card-title">${w.title}</div>
+          <div class="card-caption">${w.caption}</div>
+        </div>
+      `;
+      fig.addEventListener('click', () => openLightbox(items, i));
+      gal.appendChild(fig);
+    });
+  });
+}
+
+/* ─── SCROLL REVEAL ─── */
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: .06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+/* ─── NAV SCROLL ─── */
+function initNav() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+}
+
+/* ─── CUSTOM CURSOR ─── */
+function initCursor() {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  document.querySelectorAll('a, button, figure, .card, .chapter').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+  function animCursor() {
+    cx += (mx - cx) * 0.14;
+    cy += (my - cy) * 0.14;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+}
+
+/* ─── INIT ─── */
+renderNarrative();
+renderSeries();
+initReveal();
+initNav();
+initCursor();
+</script>
+</body>
+</html>
